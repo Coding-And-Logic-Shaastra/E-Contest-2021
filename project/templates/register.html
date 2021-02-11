@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title" style="color: aquamarine;">
+    E CONTEST - SHAASTRA 2021
+</h1>
+<div class="column is-4 is-offset-4">
+    <h3 class="title" style="color: aquamarine;">Registration</h3>
+    <div class="box" style="background-color: rgba(255, 255, 255, 0.8);">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="notification is-danger">
+                {{ messages[0] }}. Go to <a href="{{ url_for('auth.login') }}">login page</a>.
+            </div>
+        {% endif %}
+        {% endwith %}
+        <form method="POST" action="/register">
+            <div class="field">
+                <div class="control has-icons-left">
+                    <input class="input is-medium" type="text" name="shaastraID" placeholder="SHAASTRA ID" autofocus="">
+                    <span class="icon is-medium is-left">
+                        <i class="fa fa-id-card"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control has-icons-left">
+                    <input class="input is-medium" type="text" name="name" placeholder="Name" autofocus="">
+                    <span class="icon is-medium is-left">
+                        <i class="fa fa-user"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control has-icons-left">
+                    <input class="input is-medium" type="email" name="email" placeholder="Email" autofocus="">
+                    <span class="icon is-medium is-left">
+                        <i class="fa fa-envelope"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control has-icons-left">
+                    <input class="input is-medium" id = "pass1" type="password" name="password" onkeyup="checkPass();" placeholder="Password - min 6 characters">
+                    <span class="icon is-medium is-left">
+                        <i class="fa fa-lock"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control has-icons-left">
+                    <input class="input is-medium" id = "pass2" type="password" name="confirm_password" onkeyup="checkPass();" placeholder="Confirm Password">
+                    <span class="icon is-medium is-left">
+                        <i class="fa fa-lock"></i>
+                    </span>
+                </div>
+            </div>
+
+            <button class="button is-block is-info is-large is-fullwidth">Register</button>
+        </form>
+    </div>
+</div>
+
+<script>
+function checkPass() {
+    var pass1 = document.getElementById('pass1');
+    var pass2 = document.getElementById('pass2');
+    if(pass1.value.length > 5) {
+        pass1.classList.remove("is-danger");
+        pass1.classList.add("is-success");
+    }
+    else {
+        pass1.classList.remove("is-success");
+        pass1.classList.add("is-danger");
+        return;
+    }
+
+    if(pass1.value == pass2.value) {
+        pass2.classList.remove("is-danger");
+        pass2.classList.add("is-success");
+    }
+    else {
+        pass2.classList.remove("is-success");
+        pass2.classList.add("is-danger");
+    }
+}
+</script>
+
+{% endblock %}

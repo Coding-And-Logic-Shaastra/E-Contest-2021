@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title" style="color: aquamarine;">
+    E CONTEST - SHAASTRA 2021
+</h1>
+<div class="column is-4 is-offset-4">
+    <h3 class="title" style="color: aquamarine;">Login</h3>
+    <div class="box" style="background-color: rgba(255, 255, 255, 0.1);">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="notification is-danger">
+                {{ messages[0] }} If not registerd, <a href="{{ url_for('auth.register') }}">register here</a>.
+            </div>
+        {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="/login">
+            <div class="field">
+                <div class="control has-icons-left">
+                    <input class="input is-medium" type="text" name="shaastraID" placeholder="Your SHAASTRA ID" autofocus="">
+                    <span class="icon is-medium is-left">
+                        <i class="fa fa-id-card"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control has-icons-left">
+                    <input class="input is-medium" type="password" name="password" placeholder="Your Password">
+                    <span class="icon is-medium is-left">
+                        <i class="fa fa-lock"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="checkbox" style="color: whitesmoke">
+                    <input type="checkbox">
+                    Remember me
+                </label>
+            </div>
+            <button class="button is-block is-info is-large is-fullwidth">Login</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
