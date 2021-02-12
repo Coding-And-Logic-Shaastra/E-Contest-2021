@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length, EqualTo
@@ -23,6 +23,9 @@ class RegisterForm(FlaskForm) :
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    if(current_user.is_authenticated):
+        return redirect(url_for('main.contest'))
+
     form = LoginForm(request.form)
 
     if request.method == 'POST' and form.validate():
