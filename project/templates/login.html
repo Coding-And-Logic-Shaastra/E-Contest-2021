@@ -7,6 +7,14 @@
 <div class="column is-4 is-offset-4">
     <h3 class="title" style="color: aquamarine;">Login</h3>
     <div class="box" style="background-color: rgba(255, 255, 255, 0.1);">
+        {% with messages = errors %}
+        {% if messages %}
+            <div class="notification is-danger">
+                {{ messages[0][0] }}
+            </div>
+        {% endif %}
+        {% endwith %}
+
         {% with messages = get_flashed_messages() %}
         {% if messages %}
             <div class="notification is-danger">
@@ -15,10 +23,12 @@
         {% endif %}
         {% endwith %}
 
-        <form method="POST" action="/login">
+        <form method="POST" action="/login" role="form">
+            {{ form.hidden_tag() }}
             <div class="field">
                 <div class="control has-icons-left">
-                    <input class="input is-medium" type="text" name="shaastraID" placeholder="Your SHAASTRA ID" autofocus="">
+                    {{ form.shaastraID(class_ = "input is-medium", placeholder="Your SHAASTRA ID", autofocus=True) }}
+                    <!-- <input class="input is-medium" type="text" name="shaastraID" placeholder="Your SHAASTRA ID" autofocus=""> -->
                     <span class="icon is-medium is-left">
                         <i class="fa fa-id-card"></i>
                     </span>
@@ -27,7 +37,8 @@
 
             <div class="field">
                 <div class="control has-icons-left">
-                    <input class="input is-medium" type="password" name="password" placeholder="Your Password">
+                    {{ form.password(placeholder = "Your Password", class_ = "input is-medium", onkeyup="checkPass();") }}
+                    <!-- <input class="input is-medium" type="password" name="password" id="pass" onkeyup="checkPass();" placeholder="Your Password"> -->
                     <span class="icon is-medium is-left">
                         <i class="fa fa-lock"></i>
                     </span>
@@ -35,7 +46,7 @@
             </div>
             <div class="field">
                 <label class="checkbox" style="color: whitesmoke">
-                    <input type="checkbox">
+                    <input type="checkbox" name="remember">
                     Remember me
                 </label>
             </div>
@@ -43,4 +54,18 @@
         </form>
     </div>
 </div>
+
+<script>
+function checkPass() {
+    var pass = document.getElementById('password');
+    if(pass.value.length > 5 && pass.value.length <= 50) {
+        pass.classList.remove("is-danger");
+        pass.classList.add("is-success");
+    }
+    else {
+        pass.classList.remove("is-success");
+        pass.classList.add("is-danger");
+    }
+}
+</script>
 {% endblock %}

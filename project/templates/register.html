@@ -7,6 +7,14 @@
 <div class="column is-4 is-offset-4">
     <h3 class="title" style="color: aquamarine;">Registration</h3>
     <div class="box" style="background-color: rgba(255, 255, 255, 0.8);">
+        {% with messages = errors %}
+        {% if messages %}
+            <div class="notification is-danger">
+                {{ messages[0][0] }}
+            </div>
+        {% endif %}
+        {% endwith %}
+
         {% with messages = get_flashed_messages() %}
         {% if messages %}
             <div class="notification is-danger">
@@ -14,10 +22,12 @@
             </div>
         {% endif %}
         {% endwith %}
-        <form method="POST" action="/register">
+        <form method="POST" action="/register" role="form">
+            {{ form.hidden_tag() }}
             <div class="field">
                 <div class="control has-icons-left">
-                    <input class="input is-medium" type="text" name="shaastraID" placeholder="SHAASTRA ID" autofocus="">
+                    {{ form.shaastraID(class_ = "input is-medium", placeholder="SHAASTRA ID", autofocus=True) }}
+                    <!-- <input class="input is-medium" type="text" name="shaastraID" placeholder="SHAASTRA ID" autofocus=""> -->
                     <span class="icon is-medium is-left">
                         <i class="fa fa-id-card"></i>
                     </span>
@@ -26,7 +36,8 @@
 
             <div class="field">
                 <div class="control has-icons-left">
-                    <input class="input is-medium" type="text" name="name" placeholder="Name" autofocus="">
+                    {{ form.name(placeholder = "Name", class_ = "input is-medium") }}
+                    <!-- <input class="input is-medium" type="text" name="name" placeholder="Name"> -->
                     <span class="icon is-medium is-left">
                         <i class="fa fa-user"></i>
                     </span>
@@ -35,7 +46,8 @@
 
             <div class="field">
                 <div class="control has-icons-left">
-                    <input class="input is-medium" type="email" name="email" placeholder="Email" autofocus="">
+                    {{ form.email(placeholder = "Email", class_ = "input is-medium") }}
+                    <!-- <input class="input is-medium" type="email" name="email" placeholder="Email"> -->
                     <span class="icon is-medium is-left">
                         <i class="fa fa-envelope"></i>
                     </span>
@@ -44,7 +56,8 @@
 
             <div class="field">
                 <div class="control has-icons-left">
-                    <input class="input is-medium" id = "pass1" type="password" name="password" onkeyup="checkPass();" placeholder="Password - min 6 characters">
+                    {{ form.password(placeholder = "Password", class_ = "input is-medium", onkeyup="checkPass();") }}
+                    <!-- <input class="input is-medium" id = "pass1" type="password" name="password" onkeyup="checkPass();" placeholder="Password"> -->
                     <span class="icon is-medium is-left">
                         <i class="fa fa-lock"></i>
                     </span>
@@ -53,7 +66,8 @@
 
             <div class="field">
                 <div class="control has-icons-left">
-                    <input class="input is-medium" id = "pass2" type="password" name="confirm_password" onkeyup="checkPass();" placeholder="Confirm Password">
+                    {{ form.confirm_password(placeholder = "Confirm Password", class_ = "input is-medium", onkeyup="checkPass();") }}
+                    <!-- <input class="input is-medium" id = "pass2" type="password" name="confirm_password" onkeyup="checkPass();" placeholder="Confirm Password"> -->
                     <span class="icon is-medium is-left">
                         <i class="fa fa-lock"></i>
                     </span>
@@ -67,9 +81,9 @@
 
 <script>
 function checkPass() {
-    var pass1 = document.getElementById('pass1');
-    var pass2 = document.getElementById('pass2');
-    if(pass1.value.length > 5) {
+    var pass1 = document.getElementById('password');
+    var pass2 = document.getElementById('confirm_password');
+    if(pass1.value.length > 5 && pass1.value.length <= 50) {
         pass1.classList.remove("is-danger");
         pass1.classList.add("is-success");
     }
