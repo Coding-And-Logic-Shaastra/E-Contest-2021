@@ -9,8 +9,15 @@ def create_app():
     app = Flask(__name__, template_folder='./templates', static_folder='./static')
 
     app.config['SECRET_KEY'] = 'HAVOCRULEZ'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/econtest2021'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    ENV = 'PROD'
+    if ENV == 'dev' :
+        app.config['FLASK_DEBUG'] = True
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/econtest2021'
+    else :
+        app.config['FLASK_DEBUG'] = False
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://fnejfxskupdctt:2371d6ae74c391eefc780c010d2b4f5b26005e9bb5de320b412cb7a9c5cb3227@ec2-3-222-11-129.compute-1.amazonaws.com:5432/dd97eicet6la39'
 
     db.init_app(app)
 
