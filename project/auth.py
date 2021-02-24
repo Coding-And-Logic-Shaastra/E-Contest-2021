@@ -6,6 +6,7 @@ from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length, EqualTo
 from .class_orm import User
 from . import db
+from datetime import datetime, timezone, timedelta
 
 auth = Blueprint('auth', __name__)
 
@@ -23,6 +24,11 @@ class RegisterForm(FlaskForm) :
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    curr_time = datetime.now(timezone(timedelta(hours=5, minutes=30)))
+    reqd_time = datetime(2021, 2, 24, 13, 30, 0, 0, timezone(timedelta(hours=5, minutes=30)))
+    if(curr_time < reqd_time):
+        return render_template('wait.html', datetime=reqd_time.strftime("%d/%m/%Y | %H:%M:%S"))
+
     if(current_user.is_authenticated):
         return redirect(url_for('main.contest'))
 

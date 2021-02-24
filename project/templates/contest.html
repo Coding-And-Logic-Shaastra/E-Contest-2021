@@ -1,7 +1,214 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title" style="color: rgb(26, 186, 235)">
-  Welcome to the Esolang Contest, {{name}}!
+<h1 class="title" style="color: aquamarine;">
+  <a href="">E CONTEST - SHAASTRA 2021</a>
 </h1>
+<article class="message is-info" id="welcomeInfo">
+  <div class="message-header">
+    <p>Welcome Message</p>
+    <button class="delete" aria-label="delete" onclick="deleteInfo()"></button>
+  </div>
+  <div class="message-body" style="color: rgb(26, 186, 235); font-size: x-large;">
+    Welcome to the Esolang Contest, {{name}}!
+  </div>
+</article>
+
+<div class="tabs is-boxed">
+  <ul>
+    <li class="is-active" data-target="home-content">
+        <a>
+          <span class="icon is-small"><i class="fa fa-home" aria-hidden="true"></i></span>
+          <span>Home</span>
+        </a>
+    </li>
+    <li data-target="syntax-content">
+      <a>
+        <span class="icon is-small"><i class="fa fa-book" aria-hidden="true"></i></span>
+        <span>Syntax Sheet</span>
+      </a>
+    </li>
+    <li data-target="examples-content">
+      <a>
+        <span class="icon is-small"><i class="fa fa-puzzle-piece" aria-hidden="true"></i></span>
+        <span>Examples</span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="box content" id="tab-content">
+  <div id="home-content">
+    <p>Welcome to <b>Shaastra’s Esolang contest</b> (that's what the 'E' stands for)! <br>
+      As the name suggests, you would have to work on the given questions using an Esoteric language. <br>
+      We have chosen <b>WHITESPACE</b> as the language for this contest.<br>
+    </p>
+    <p>
+      At first sight it seems to be a rudimentary language using which not many things can be achieved, but in fact it is a Turing Complete language! <br>
+      In other words you can code whatever you’d want to in this language! Mind-boggling, isn’t it? <br>
+      However practically it cannot be deployed for any serious purpose given the fact that it is extremely difficult to comprehend and takes time and a lot more brains to code anything useful. <br>
+      <br>
+    </p>
+  </div>
+
+  <div id="syntax-content" class="is-hidden">
+    <p>***** NOTE ***** You can view this sheet whenever you want during the contest, so use your time wisely</p>
+    ********************************************************************<br>
+    SYNTAX SHEET :<br>
+    ********************************************************************<br>
+    <p>
+    There are just 3 commands/operators in this language: [Space], [Tab], [LineFeed]<br>
+    Any character other than these three is ignored and are considered comments.<br>
+    </p>
+    <p>
+    The language itself is an imperative, stack based language. Each command consists of a series of tokens, beginning with the Instruction Modification Parameter (IMP). These are listed in the table below.<br>
+    </p>
+    <table>
+    <tr><th width="130">IMP</th>
+    <th width="150">Meaning</th></tr>
+    <tr><td>[Space]</td>
+    <td>Stack Manipulation</td></tr>
+    <tr><td>[Tab][Space]</td>
+    <td>Arithmetic</td></tr>
+    <tr><td>[Tab][Tab]</td>
+    <td>Heap Access</td></tr>
+    <tr><td>[LF]</td>
+    <td>Flow Control</td></tr>
+    <tr><td>[Tab][LF]</td>
+    <td>I/O</td></tr>
+    </table>
+    <p>
+    The virtual machine on which programs run has a stack and a heap. The programmer is free to push arbitrary width integers onto the stack (only integers, currently there is no implementation of floating point or real numbers). The heap can also be accessed by the user as a permanent store of variables and data structures.
+    </p>
+    <p>
+    Many commands require numbers or labels as parameters. Numbers can be any number of bits wide, and are simply represented as a series of [Space] and [Tab], terminated by a [LF]. [Space] represents the binary digit 0, [Tab] represents 1. The sign of a number is given by its first character, [Space] for positive and [Tab] for negative. Note that this is not twos complement, it just indicates a sign.
+    </p>
+    <p>
+    Labels are simply [LF] terminated lists of spaces and tabs. There is only one global namespace so all labels must be unique.
+    </p>
+    <div>
+      <h3>Stack Manipulation:</h3>
+      <table>
+      <tr><th width="150">IMP</th>
+      <th width="150">Command</th>
+      <th width="150">Parameters</th>
+      <th>Meaning</th></tr>
+      <tr><td>[Space]</td>
+      <td>[Space]</td>
+      <td>Number</td>
+      <td>Push the number onto the stack</td></tr>
+      <tr><td>[Space]</td><td>[LF][Space]</td><td>-</td><td>Duplicate the top item on the stack</td></tr>
+      <tr><td>[Space]</td><td>[LF][Tab]</td><td>-</td><td>Swap the top two items on the stack</td></tr>
+      <tr><td>[Space]</td><td>[LF][LF]</td><td>-</td><td>Discard the top item on the stack</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>Arithmetic:</h3>
+      <p>
+      Arithmetic commands operate on the top two items on the stack, and replace them with the result of the operation. The first item pushed is considered to be left of the operator. 
+      </p>
+      <table>
+      <tr><th width="150">IMP</th>
+      <th width="150">Command</th>
+      <th width="150">Parameters</th>
+      <th>Meaning</th></tr>
+      <tr><td>[Tab][Space]</td><td>[Space][Space]</td><td>-</td><td>Addition</td></tr>
+      <tr><td>[Tab][Space]</td><td>[Space][Tab]</td><td>-</td><td>Subtraction</td></tr>
+      <tr><td>[Tab][Space]</td><td>[Space][LF]</td><td>-</td><td>Multiplication</td></tr>
+      <tr><td>[Tab][Space]</td><td>[Tab][Space]</td><td>-</td><td>Integer Division<</td></tr>
+      <tr><td>[Tab][Space]</td><td>[Tab][Tab]</td><td>-</td><td>Modulo</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>Heap Access:</h3>
+      <p>
+      Heap access commands look at the stack to find the address of items to be stored or retrieved. To store an item, push the address then the value and run the store command. To retrieve an item, push the address and run the retrieve command, which will place the value stored in the location at the top of the stack.
+      </p>
+      <table>
+      <tr><th width="150">IMP</th>
+      <th width="150">Command</th>
+      <th width="150">Parameters</th>
+      <th>Meaning</th></tr>
+      <tr><td>[Tab][Tab]</td><td>[Space]</td><td>-</td><td>Store</td></tr>
+      <tr><td>[Tab][Tab]</td><td>[Tab]</td><td>-</td><td>Retrieve</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>Flow Control:</h3>
+      <p>
+      Flow control operations are also common. Subroutines are marked by labels, as well as the targets of conditional and unconditional jumps, by which loops can be implemented. Programs must be ended by means of [LF][LF][LF] so that the interpreter can exit cleanly.
+      </p>
+      <table>
+      <tr><th width="150">IMP</th>
+      <th width="150">Command</th>
+      <th width="150">Parameters</th>
+      <th>Meaning</th></tr>
+      <tr><td>[LF]</td><td>[Space][Space]</td><td>Label</td><td>Mark a location in the program</td></tr>
+      <tr><td>[LF]</td><td>[Space][Tab]</td><td>Label</td><td>Call a subroutine</td></tr>
+      <tr><td>[LF]</td><td>[Space][LF]</td><td>Label</td><td>Jump unconditionally to a label</td></tr>
+      <tr><td>[LF]</td><td>[Tab][Space]</td><td>Label</td><td>Jump to a label if the top of the stack is zero</td></tr>
+      <tr><td>[LF]</td><td>[Tab][Tab]</td><td>Label</td><td>Jump to a label if the top of the stack is negative</td></tr>
+      <tr><td>[LF]</td><td>[Tab][LF]</td><td>-</td><td>End a subroutine and transfer control back to the caller</td></tr>
+      <tr><td>[LF]</td><td>[LF][LF]</td><td>-</td><td>End the program</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>I/O:</h3>
+      <p>
+      Finally, we need to be able to interact with the user. There are IO instructions for reading and writing numbers and individual characters. With these, string manipulation routines can be written.
+      <br>
+      The read instructions take the heap address in which to store the result from the top of the stack.
+      </p>
+      <table>
+      <tr><th width="150">IMP</th>
+      <th width="150">Command</th>
+      <th width="150">Parameters</th>
+      <th>Meaning</th></tr>
+      <tr><td>[Tab][LF]</td><td>[Space][Space]</td><td>-</td><td>Output the character at the top of the stack</td></tr>
+      <tr><td>[Tab][LF]</td><td>[Space][Tab]</td><td>-</td><td>Output the number at the top of the stack</td></tr>
+      <tr><td>[Tab][LF]</td><td>[Tab][Space]</td><td>-</td><td>Read a character and place it in the location given by the top of the stack</td></tr>
+      <tr><td>[Tab][LF]</td><td>[Tab][Tab]</td><td>-</td><td>Read a number and place it in the location given by the top of the stack</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div id="examples-content" class="is-hidden">
+    <h3>Examples</h3>
+    Example Program 2:<br>
+    Given N, output factorial of N.
+    <p>
+    Code can be found <a href="https://ideone.com/enkuj1" target="_blank">here</a>
+    </p>
+  </div>
+
+</div>
+
+<script>
+  function deleteInfo() {
+      var info_container = document.getElementById('welcomeInfo');
+      info_container.style.display = "none";
+  }
+
+  // Tabs
+  const tabs = document.querySelectorAll('.tabs li');
+  const tabContentBoxes = document.querySelectorAll('#tab-content > div');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(item => item.classList.remove("is-active"));
+      tab.classList.add("is-active");
+
+      const target = tab.dataset.target;
+      tabContentBoxes.forEach(box => {
+        if(box.getAttribute('id') == target) {
+          box.classList.remove("is-hidden");
+        }
+        else {
+          box.classList.add("is-hidden");
+        }
+      });
+
+    });
+  });
+  </script>
 {% endblock %}
