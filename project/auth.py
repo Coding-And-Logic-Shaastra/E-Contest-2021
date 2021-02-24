@@ -25,7 +25,7 @@ class RegisterForm(FlaskForm) :
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     curr_time = datetime.now(timezone(timedelta(hours=5, minutes=30)))
-    reqd_time = datetime(2021, 2, 24, 13, 30, 0, 0, timezone(timedelta(hours=5, minutes=30)))
+    reqd_time = datetime(2021, 2, 25, 19, 30, 0, 0, timezone(timedelta(hours=5, minutes=30)))
     if(curr_time < reqd_time):
         return render_template('wait.html', datetime=reqd_time.strftime("%d/%m/%Y | %H:%M:%S"))
 
