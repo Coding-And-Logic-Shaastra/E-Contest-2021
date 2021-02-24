@@ -7,7 +7,7 @@ class User(UserMixin, db.Model):
     shaastraID = db.Column(db.String(25),nullable = False,unique = True)
     password = db.Column(db.String(100),nullable = False)
     name = db.Column(db.String(50),nullable = False)
-    email = db.Column(db.String(50),nullable = False,unique=True)
+    email = db.Column(db.String(50),nullable = False)
 
     def __init__(self, **kwargs) :
         super(User, self).__init__(**kwargs)
