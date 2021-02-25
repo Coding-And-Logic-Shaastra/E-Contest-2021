@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1 class="title" style="color: aquamarine;">
-  <a href="">E CONTEST - SHAASTRA 2021</a>
+  <a href="https://www.codechef.com/EFNL2021" target="_blank">E CONTEST - SHAASTRA 2021</a>
 </h1>
 <article class="message is-info" id="welcomeInfo">
   <div class="message-header">
@@ -39,9 +39,9 @@
 
 <div class="box content" id="tab-content">
   <div id="home-content">
-    <p>Welcome to <b>Shaastra’s Esolang contest</b> (that's what the 'E' stands for)! <br>
+    <p>Welcome to <span style="color: hsl(348, 100%, 61%);"><b>Shaastra’s Esolang contest</b></span> (that's what the 'E' stands for)! <br>
       As the name suggests, you would have to work on the given questions using an Esoteric language. <br>
-      We have chosen <b>WHITESPACE</b> as the language for this contest.<br>
+      We have chosen <span style="color: hsl(348, 100%, 61%);"><b>WHITESPACE</b></span> as the language for this contest.<br>
     </p>
     <p>
       At first sight it seems to be a rudimentary language using which not many things can be achieved, but in fact it is a Turing Complete language! <br>
@@ -53,8 +53,8 @@
 
   <div id="syntax-content" class="is-hidden">
     <p>***** NOTE ***** You can view this sheet whenever you want during the contest, so use your time wisely</p>
-    ********************************************************************<br>
-    SYNTAX SHEET :<br>
+    ********************************************************************
+    <h3 style="color: hsl(348, 100%, 61%);"><b>SYNTAX SHEET</b></h3> 
     ********************************************************************<br>
     <p>
     There are just 3 commands/operators in this language: [Space], [Tab], [LineFeed]<br>
@@ -87,7 +87,7 @@
     Labels are simply [LF] terminated lists of spaces and tabs. There is only one global namespace so all labels must be unique.
     </p>
     <div>
-      <h3>Stack Manipulation:</h3>
+      <h3 style="color: hsl(348, 100%, 61%);">Stack Manipulation:</h3>
       <table>
       <tr><th width="150">IMP</th>
       <th width="150">Command</th>
@@ -103,7 +103,7 @@
       </table>
     </div>
     <div>
-      <h3>Arithmetic:</h3>
+      <h3 style="color: hsl(348, 100%, 61%);">Arithmetic:</h3>
       <p>
       Arithmetic commands operate on the top two items on the stack, and replace them with the result of the operation. The first item pushed is considered to be left of the operator. 
       </p>
@@ -120,7 +120,7 @@
       </table>
     </div>
     <div>
-      <h3>Heap Access:</h3>
+      <h3 style="color: hsl(348, 100%, 61%);">Heap Access:</h3>
       <p>
       Heap access commands look at the stack to find the address of items to be stored or retrieved. To store an item, push the address then the value and run the store command. To retrieve an item, push the address and run the retrieve command, which will place the value stored in the location at the top of the stack.
       </p>
@@ -134,7 +134,7 @@
       </table>
     </div>
     <div>
-      <h3>Flow Control:</h3>
+      <h3 style="color: hsl(348, 100%, 61%);">Flow Control:</h3>
       <p>
       Flow control operations are also common. Subroutines are marked by labels, as well as the targets of conditional and unconditional jumps, by which loops can be implemented. Programs must be ended by means of [LF][LF][LF] so that the interpreter can exit cleanly.
       </p>
@@ -153,7 +153,7 @@
       </table>
     </div>
     <div>
-      <h3>I/O:</h3>
+      <h3 style="color: hsl(348, 100%, 61%);">I/O:</h3>
       <p>
       Finally, we need to be able to interact with the user. There are IO instructions for reading and writing numbers and individual characters. With these, string manipulation routines can be written.
       <br>
@@ -174,11 +174,21 @@
 
   <div id="examples-content" class="is-hidden">
     <h3>Examples</h3>
-    Example Program 2:<br>
-    Given N, output factorial of N.
-    <p>
-    Code can be found <a style="color: hsl(171, 100%, 41%);" href="https://ideone.com/enkuj1" target="_blank">here</a>
-    </p>
+    <div> 
+      <h4 style="color: hsl(348, 100%, 61%);">Example Program 1:</h4>
+      Printing "Hello"
+      <p>
+      Code can be found <a style="color: hsl(171, 100%, 41%);" href="https://ideone.com/enkuj1" target="_blank">here</a>
+      </p>
+    </div>
+    </br>
+    <div> 
+      <h4 style="color: hsl(348, 100%, 61%);">Example Program 2:</h4>
+      Given N, output factorial of N.
+      <p>
+      Code can be found <a style="color: hsl(171, 100%, 41%);" href="https://ideone.com/66Akk2" target="_blank">here</a>
+      </p>
+    </div>
   </div>
 
 </div>
