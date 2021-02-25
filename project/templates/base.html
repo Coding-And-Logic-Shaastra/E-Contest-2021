@@ -95,6 +95,16 @@
             setTimeout(() => {document.querySelector("#loader").style.display = "none";}, 2000);
             document.querySelector("body").classList.add("loaded"); 
         });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+                const $notification = $delete.parentNode;
+
+                $delete.addEventListener('click', () => {
+                $notification.parentNode.removeChild($notification);
+                });
+            });
+        });
     </script>
 
 </head>
@@ -105,6 +115,7 @@
 		<div id = "mtx">
 		</div>
 	</div>
+    
     <section class="hero is-primary is-fullheight" style="background: url({{ url_for('static', filename='images/laptop.jpg') }}); background-repeat: no-repeat; background-size : 100% 100%; font-family: 'copperplate', 'Courier New', 'Arial'; overflow-x: scroll;">
 
         <div class="hero-head">
@@ -146,12 +157,19 @@
             </nav>
         </div>
 
+        <div class="notification is-info is-light">
+            <button class="delete"></button>
+            <p style="font-size: x-large;">The E-contest is postponed to <strong>26th February 2021 | 5PM - 7PM</strong> !!</p>
+            Meanwhile click <a style="color: hsl(170, 92%, 5%);" href= "https://www.codechef.com/EFNL2021">here</a> to register team on codechef
+        </div>
+
         <div class="hero-body">
             <div class="container has-text-centered">
                 {% block content %}
                 {% endblock %}
             </div>
         </div>
+
     </section>
 </body>
 
